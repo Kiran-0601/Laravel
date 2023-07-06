@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ForgotPasswordController;
 use App\Http\Controllers\Admin\ResetPasswordController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,13 @@ Route::group(['prefix' => 'admin'], function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('home', [AuthController::class, 'index'])->name('admin.home');
         Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
+
+        // Show-Users Routes
+        Route::get('users', [UserController::class, 'index'])->name('users');
+        Route::get('users/view/{id}', [UserController::class, 'view'])->name('users.view');
+        Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+        Route::post('users/update/', [UserController::class, 'update'])->name('users.update');
+        Route::get('users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
     });
     // Forgot Password & Reset Password Routes
     Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');
@@ -41,4 +49,3 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('admin.password.reset');
     Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('admin.password.update');
 });
-

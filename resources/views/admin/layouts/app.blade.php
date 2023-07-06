@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
@@ -11,6 +12,11 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 </head>
 <style>
 .form-check {
@@ -36,7 +42,6 @@ input:focus, textarea:focus {
 
   border-color: grey;
   box-shadow: none !important;
-
 }
 .form-check-input.is-invalid {
   border-color: gray;
@@ -50,20 +55,32 @@ a{
 .mt-5{
     margin-top: 4rem !important;
 }
+.fa{
+    margin-right: 3px;
+}
+a{
+    font-size: 15px;
+    color: #800000;
+    text-decoration: none;
+}
+a:hover {
+  color: #800000; /* New hover color */
+}
 </style>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                @if (Route::has('admin.login'))
                 <div class="sm:fixed p-6">
                     <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link" href="{{ route('admin.home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('users') }}">Show Users</a>
                     </li>
                     </ul>
                 </div>
-                @endif
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -92,7 +109,7 @@ a{
                 </div>
             </div>
         </nav>
-        <main class="py-4">
+        <main class="py-5">
             @yield('content')
         </main>
     </div>
