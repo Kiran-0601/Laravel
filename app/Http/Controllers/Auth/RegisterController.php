@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomMail;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 
@@ -43,6 +44,13 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    public function showRegistrationForm()
+    {
+        $countries = Country::get();
+        //dd($countries);
+        return view('auth.register',compact('countries'));
     }
 
     /**

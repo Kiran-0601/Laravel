@@ -36,10 +36,9 @@
                             <div class="col-md-6">                               
                                 <select class="form-control @error('country') is-invalid @enderror" id="country" name="country">
                                     <option value="">Select a Country</option>
-                                    <option value="US">United States</option>
-                                    <option value="CA">Canada</option>
-                                    <option value="UK">United Kingdom</option>
-                                    <!-- Add more countries as needed -->
+                                    @foreach($countries as $value)
+                                        <option value="{{ $value->code }}">{{ $value->name }}</option>
+                                    @endforeach
                                 </select>
                                 @error('country')
                                 <span class="invalid-feedback" role="alert">

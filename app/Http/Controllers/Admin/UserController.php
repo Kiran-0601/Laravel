@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -51,7 +52,7 @@ class UserController extends Controller
                     $nestedData['email'] = $value->email;
                     $nestedData['gender'] = $value->gender;
     
-                    // $actionButtons;"' . route('users.delete', ['id' => $value->id]) . '"
+                    // $actionButtons
                     $actionButtons = "";
                     $actionButtons .= '<a href="' . route('users.view', ['id' => $value->id]) . '">View |</a>';
                     $actionButtons .= '<a href="' . route('users.edit', ['id' => $value->id]) . '"> Edit |</a>';
@@ -79,7 +80,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $data = User::find($id);
-        return view('admin.users.edit', compact('data'));
+        $countries = Country::get();
+        //dd($countries);
+        return view('admin.users.edit', compact('data', 'countries'));
     }
     public function update(Request $request)
     {

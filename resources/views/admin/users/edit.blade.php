@@ -40,10 +40,10 @@
                             <label for="name" class="col-md-4 col-form-label text-md-end">Select Country</label>
                             <div class="col-md-6">
                                 <select class="form-control @error('country') is-invalid @enderror" id="country" name="country">
-                                    <option value="US" {{ (old('country') == 'US' || $data->country == 'US') ? 'selected' : '' }}>United States</option>
-                                    <option value="CA" {{ (old('country') == 'CA' || $data->country == 'CA') ? 'selected' : '' }}>Canada</option>
-                                    <option value="UK" {{ (old('country') == 'UK' || $data->country == 'UK') ? 'selected' : '' }}>United Kingdom</option>
-                                    <!-- Add more countries as needed -->
+                                    <option value="">Select Country</option>
+                                    @foreach($countries as $value)
+                                        <option value="{{ $value->code }}" {{ old('country', $data->country) == $value->code ? 'selected' : '' }}>{{ $value->name }}</option>
+                                    @endforeach
                                 </select>
                                 @error('country')
                                 <span class="invalid-feedback" role="alert">
