@@ -48,6 +48,7 @@ input:focus, textarea:focus {
 }
 a{
     font-size: 20px;
+    cursor: pointer;
 }
 .container{
     max-width: 1000px;

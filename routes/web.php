@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('users/view/{id}', [UserController::class, 'view'])->name('users.view');
         Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
         Route::post('users/update/', [UserController::class, 'update'])->name('users.update');
-        Route::get('users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
+        Route::post('users/{id}', [UserController::class, 'delete'])->name('users.delete');
     });
     // Forgot Password & Reset Password Routes
     Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');
