@@ -46,7 +46,10 @@ input:focus, textarea:focus {
   border-color: gray;
 }
 a{
-    font-size: 20px;
+    font-size: 18px;
+    color: #800000;
+    text-decoration: none;
+    margin-right: 14px;
 }
 .container{
     max-width: 1000px;
@@ -60,7 +63,9 @@ h2{
 .mt-5 {
     margin-top: 4rem !important;
 }
-
+.py-4 {
+  padding-top: 6rem !important;
+}
 </style>
 <body>
     <div id="app">
@@ -68,7 +73,9 @@ h2{
             <div class="container">
                 @if (Route::has('admin.login'))
                 <div class="sm:fixed p-6">
-                    <!-- <a href="{{ route('admin.login') }}">Admin Login</a> -->
+                    <a href="{{ route('home') }}">Home</a>
+                    <a href="{{ route('edit-profile') }}">Edit Profile</a>
+                    <a href="{{ route('change-password') }}">Change Password</a>
                 </div>
                 @endif
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

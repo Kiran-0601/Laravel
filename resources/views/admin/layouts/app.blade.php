@@ -17,8 +17,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
-
 </head>
 <style>
 .form-check {
@@ -68,6 +66,16 @@ a{
 }
 a:hover {
   color: #800000; /* New hover color */
+}
+.py-5 {
+  padding-top: 6rem !important;
+}
+#users-table {
+  text-align: center;
+}
+.form-check-input:checked {
+  background-color: #800000;
+  border-color: #800000;
 }
 </style>
 <body>

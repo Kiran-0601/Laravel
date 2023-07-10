@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ForgotPasswordController;
 use App\Http\Controllers\Admin\ResetPasswordController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 Route::middleware(['auth','verified'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/edit-profile', [HomeController::class, 'editProfile'])->name('edit-profile');
+    Route::post('/update-profile', [HomeController::class, 'updateProfile'])->name('update-profile');
+    Route::get('/change-password', [HomeController::class, 'changePassword'])->name('change-password');
+    Route::post('/save-change-password', [HomeController::class, 'saveChangePassword'])->name('save-change-password');
     Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
 });
 
@@ -41,6 +46,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('users/view/{id}', [UserController::class, 'view'])->name('users.view');
         Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
         Route::post('users/update/', [UserController::class, 'update'])->name('users.update');
+        Route::post('users/update-status/', [UserController::class, 'updateStatus'])->name('users.update-status');
         Route::post('users/{id}', [UserController::class, 'delete'])->name('users.delete');
     });
     // Forgot Password & Reset Password Routes

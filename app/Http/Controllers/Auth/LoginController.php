@@ -64,6 +64,7 @@ class LoginController extends Controller
     {
         $credentials = $this->credentials($request);
         $credentials['user_type'] = 2; // Add user_type condition
+        $credentials['status'] = 1; // Add Status condition
 
         return $this->guard()->attempt(
             $credentials, $request->filled('remember')

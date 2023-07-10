@@ -15,6 +15,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Gender</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -54,6 +55,10 @@ $(document).ready(function () {
         orderable: true
       },
       {
+        "data": "status",
+        orderable: true
+      },
+      {
         "data": "actions",
         orderable: false
       }
@@ -89,9 +94,35 @@ $(document).ready(function () {
       }
     });
   });
+  
+  $('#users-table').on('change', '.toggle-switch', function() {
+      
+    var userId = $(this).data('id');
+    var status = ($(this).prop('checked')) ? 1 : 0;
+    // alert(userId);
+    $.ajax({
+      data: { userId: userId, status: status },
+      headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: "post",
+      url: "{{ route('users.update-status') }}",
+      success: function(response){
+        console.log(response.Message);
+        // table.ajax.reload(null, false);
+        $('#alertmes').html(response.Message); // Update table body
+        var alertMessage = document.getElementById('alertMessage');
+        // Hide the alert after 2 seconds
+        setTimeout(function() {
+          alertMessage.classList.remove('show');
+        }, 2000);
+        
+      }
+    });
+  });  
 });
 </script>
-
+<div id="alertmes"></div>
  <!-- Bootstrap modal for Delete Confirmation -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
