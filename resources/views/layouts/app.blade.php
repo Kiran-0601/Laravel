@@ -92,6 +92,7 @@ h2{
                     <a href="{{ route('home') }}">Home</a>
                     <a href="{{ route('edit-profile') }}">Edit Profile</a>
                     <a href="{{ route('change-password') }}">Change Password</a>
+                    <a href="{{ route('feedback') }}">Feedback</a>
                 </div>
                 @endif
                 @endauth

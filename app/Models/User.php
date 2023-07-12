@@ -80,4 +80,8 @@ class User extends Authenticatable implements MustVerifyEmail
             ], false));
         }
     }
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class);
+    }
 }

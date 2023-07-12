@@ -94,6 +94,9 @@ a:hover {
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('users') }}">Show Users</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.feedback') }}">Feedbacks</a>
+                    </li>
                     </ul>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

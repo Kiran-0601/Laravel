@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
 use App\Http\Controllers\Admin\ForgotPasswordController;
 use App\Http\Controllers\Admin\ResetPasswordController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -31,6 +33,12 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/change-password', [HomeController::class, 'changePassword'])->name('change-password');
     Route::post('/save-change-password', [HomeController::class, 'saveChangePassword'])->name('save-change-password');
     Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
+
+    // Feedback Form Routes
+    Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
+    Route::post('/feedback-submit', [FeedbackController::class, 'submit'])->name('feedback-submit');
+
+
 });
 
 // Admin Routes
@@ -40,6 +48,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('home', [AuthController::class, 'index'])->name('admin.home');
         Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
+        
+        // Feedback-Form Routes
+        Route::get('feedback', [AdminFeedbackController::class, 'feedbackList'])->name('admin.feedback');
 
         // Show-Users Routes
         Route::get('users', [UserController::class, 'index'])->name('users');
