@@ -8,11 +8,10 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\WelcomMail;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -72,8 +71,8 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required'],
             'address' => ['required'],
-        ],
-    );
+            'image' => ['required', 'image', 'mimes:jpeg,png,gif', 'max:2048'],
+        ],);
     }
 
     /**
@@ -84,6 +83,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $croppedImageData = $data['cropped-image'];       // Get the cropped image data from the hidden field
+        $name = $data['image']->getClientOriginalName();   // Get the name of the uploaded image file
+        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $croppedImageData));
+        Storage::disk('public')->put('images/' . $name, $imageData);     // save the image in folder
+        
         return User::create([
             'name' => $data['name'],
             'lname' => $data['lname'],
@@ -95,6 +99,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'user_type' => "2",
             'status' => "1",
+            'image' => $name,
         ]);
     }
     public function register(Request $request)

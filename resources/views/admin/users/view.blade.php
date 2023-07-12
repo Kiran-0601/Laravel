@@ -48,6 +48,10 @@
                                 {{ $data->address ? $data->address : 'Not given' }}
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label for="image" class="form-label fw-bold">Profile Picture</label>
+                            <img id="cropped-image" src="{{ asset('storage/images/' . $data->image) }}" class="img-fluid"/>
+                        </div>
                         <div class="row mb-0">
                             <div class="col-md-8">
                                 <button onclick="window.location='{{ route('users') }}'" class="register">

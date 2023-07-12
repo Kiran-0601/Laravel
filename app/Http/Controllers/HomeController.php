@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Country;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -41,7 +42,7 @@ class HomeController extends Controller
     }
     public function updateProfile(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => 'required',
             'lname' => 'required',
             'country' => 'required',
@@ -50,7 +51,19 @@ class HomeController extends Controller
             'gender' => 'required',
         ]);
         $user = User::find($request->id);
-        $user->update($request->all());
+        // if user update profile-photo
+        if($request->image){
+            if($user->image) // check if image exists in database or not..
+            {
+                Storage::delete('/public/images/'.auth()->user()->image);  // old Image delete from folder
+            }
+            $croppedImageData = $request->input('cropped-image');
+            $name = $request->file('image')->getClientOriginalName();
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $croppedImageData));
+            Storage::disk('public')->put('images/' . $name, $imageData);     // save the new image in folder
+            $user->image = $name;
+        }
+        $user->update($data);
         //dd("save");
         return redirect()->route('edit-profile')->with('success', 'User updated successfully');
     }

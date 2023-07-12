@@ -77,6 +77,10 @@ a:hover {
   background-color: #800000;
   border-color: #800000;
 }
+.img-fluid {
+    max-width: 20%;
+    height: 10%;
+}
 </style>
 <body>
     <div id="app">
