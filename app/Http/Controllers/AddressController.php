@@ -83,6 +83,7 @@ class AddressController extends Controller
         ]);
 
         $data['user_id'] = Auth::id();
+        $data['addline2'] = $request->addline2;
         Address::create($data);
         // dd("save");
         return redirect()->back()->with('status', 'Address Added successfully');

@@ -116,14 +116,8 @@
                                 <img id="cropped-image" src="{{ asset('storage/images/' . Auth::user()->image) }}" class="img-fluid"/>
                                 <input type="hidden" name="cropped-image" id="cropped-image-data">
                             </div>
-                        </div>
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="register">
-                                    Update
-                                </button>
-                            </div>
-                        </div>
+                        </div>                     
+                        <button type="submit" class="register">Update</button>
                     </form>
                 </div>
             </div>

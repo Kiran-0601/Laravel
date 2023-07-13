@@ -18,11 +18,9 @@ class FeedbackController extends Controller
                 3 => 'name',
                 4 => 'email'
             );
-            $query = Feedback::with([
-                'user' => function ($query) {
-                    $query->select('id', 'name', 'email');
-                }
-            ]);
+            $query = Feedback::join('users', 'feedback.user_id', '=', 'users.id')
+            ->select('feedback.*', 'users.name', 'users.email');
+
             if (!empty($request->input('search.value'))) {
                 $searchValue = $request->input('search.value');
                 $query->where(function ($qry) use ($searchValue) {
