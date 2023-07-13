@@ -14,9 +14,11 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -25,15 +27,15 @@
     margin-top: 10px;
 }
 .register {
-    padding: 7px;
+    padding: 5px;
     background: #800000;
     border: none;
-    margin: 6px 0 20px 0px;
+    margin: 6px 10px 5px 0px;
     cursor: pointer;
     color: #fff;
     font-weight: 900;
     font-size: 18px;
-    width: 25%;
+    width: 15%;
 }
 .form-control.is-invalid {
     /* border-color: transparent !important; */
@@ -54,6 +56,10 @@ a{
     color: #800000;
     text-decoration: none;
     margin-right: 14px;
+    cursor: pointer;
+}
+a:hover{
+    color: #800000;
 }
 .container{
     max-width: 1000px;
@@ -93,6 +99,7 @@ h2{
                     <a href="{{ route('edit-profile') }}">Edit Profile</a>
                     <a href="{{ route('change-password') }}">Change Password</a>
                     <a href="{{ route('feedback') }}">Feedback</a>
+                    <a href="{{ route('address') }}">Addresses</a>
                 </div>
                 @endif
                 @endauth

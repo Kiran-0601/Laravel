@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\AuthController;
@@ -38,7 +39,13 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
     Route::post('/feedback-submit', [FeedbackController::class, 'submit'])->name('feedback-submit');
 
-
+    // Addresses Form Routes
+    Route::get('/address', [AddressController::class, 'index'])->name('address');
+    Route::get('address/create', [AddressController::class, 'create'])->name('address.create');
+    Route::post('address/store', [AddressController::class, 'store'])->name('address.store');
+    Route::get('address/edit/{id}', [AddressController::class, 'edit'])->name('address.edit');
+    Route::post('address/update', [AddressController::class, 'update'])->name('address.update');
+    Route::get('address/delete', [AddressController::class, 'delete'])->name('address.delete');
 });
 
 // Admin Routes
