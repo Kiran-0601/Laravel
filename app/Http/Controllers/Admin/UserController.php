@@ -77,10 +77,10 @@ class UserController extends Controller
         }
         return view('admin.users.home');
     }
-
     public function view($id)
     {
-        $data = User::find($id);
+        $data = User::with('addresses')->find($id);
+        //dd($data);
         return view('admin.users.view', compact('data'));
     }
     public function edit($id)

@@ -37,9 +37,17 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-10">
+                            <div class="col-md-6">
                                 <label class="form-label fw-bold">Email :</label>
                                 {{$data->email}}                                
+                            </div>
+                            <div class="col-md-6">
+                                <label for="image" class="form-label fw-bold">Profile Picture :</label><br>
+                                @if ($data->image)
+                                <img id="cropped-image" src="{{ asset('storage/images/' . $data->image) }}" width="60" />
+                                @else
+                                <p>Not Uploaded</p>
+                                @endif
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -49,8 +57,21 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="image" class="form-label fw-bold">Profile Picture</label>
-                            <img id="cropped-image" src="{{ asset('storage/images/' . $data->image) }}" class="img-fluid"/>
+                            <label for="addresses" class="form-label fw-bold">Addresses :</label>
+                            @if ($data->addresses->count() > 0)
+                                @foreach ($data->addresses as $address)
+                                    <p>Address Line 1 :
+                                    {{ $address->addline1 }}<br>
+                                    Address Line 2 :
+                                    {{ $address->addline2 ?? "Not Given" }}<br>
+                                    City :
+                                    {{ $address->city }}<br>
+                                    Pincode :
+                                    {{ $address->pincode }}</p><br>
+                                @endforeach
+                            @else
+                                <p>Addresses Not found.</p>
+                            @endif
                         </div>
                         <div class="row mb-0">
                             <div class="col-md-8">
