@@ -10,6 +10,6 @@ class FeedbackType extends Model
     use HasFactory;
 
     protected $fillable = [
-        'feeback_type',
+        'feedback_type',
     ];
 }

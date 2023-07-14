@@ -20,7 +20,7 @@
                                 <select class="form-control @error('type') is-invalid @enderror" id="type" name="type">
                                     <option value="">Select Type</option>
                                     @foreach($type as $value)
-                                        <option value="{{ $value->feeback_type }}">{{ $value->feeback_type }}</option>
+                                        <option value="{{ $value->feedback_type }}">{{ $value->feedback_type }}</option>
                                     @endforeach
                                 </select>
                                 @error('type')

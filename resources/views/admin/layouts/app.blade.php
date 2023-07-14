@@ -31,7 +31,7 @@
     color: #fff;
     font-weight: 900;
     font-size: 18px;
-    width: 25%;
+    width: 20%;
 }
 .form-control.is-invalid {
     /* border-color: transparent !important; */
@@ -96,6 +96,9 @@ a:hover {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.feedback') }}">Feedbacks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('feedback-types') }}">Feedback Type</a>
                     </li>
                     </ul>
                 </div>

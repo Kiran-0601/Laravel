@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
+use App\Http\Controllers\Admin\FeedbackTypesController;
 use App\Http\Controllers\Admin\ForgotPasswordController;
 use App\Http\Controllers\Admin\ResetPasswordController;
 use App\Http\Controllers\Admin\UserController;
@@ -66,6 +67,15 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('users/update/', [UserController::class, 'update'])->name('users.update');
         Route::post('users/update-status/', [UserController::class, 'updateStatus'])->name('users.update-status');
         Route::post('users/{id}', [UserController::class, 'delete'])->name('users.delete');
+
+        // Feedback Type Form Routes
+        Route::get('/feedback-types', [FeedbackTypesController::class, 'index'])->name('feedback-types');
+        Route::get('feedback-types/create', [FeedbackTypesController::class, 'create'])->name('feedback-types.create');
+        Route::post('feedback-types/store', [FeedbackTypesController::class, 'store'])->name('feedback-types.store');
+        Route::get('feedback-types/edit/{id}', [FeedbackTypesController::class, 'edit'])->name('feedback-types.edit');
+        Route::post('feedback-types/update', [FeedbackTypesController::class, 'update'])->name('feedback-types.update');
+        Route::get('feedback-types/delete', [FeedbackTypesController::class, 'delete'])->name('feedback-types.delete');
+
     });
     // Forgot Password & Reset Password Routes
     Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');

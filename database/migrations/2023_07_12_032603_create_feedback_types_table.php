@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('feedback_types', function (Blueprint $table) {
             $table->id();
-            $table->string('feeback_type');
+            $table->string('feedback_type');
             $table->timestamps();
         });
     }
