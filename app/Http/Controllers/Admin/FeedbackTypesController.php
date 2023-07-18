@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 
 class FeedbackTypesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view-feedback-type')->only('index');
+        $this->middleware('permission:add-feedback-type')->only('create','store');
+        $this->middleware('permission:edit-feedback-type')->only('edit','update');
+        $this->middleware('permission:delete-feedback-type')->only('delete');
+    }
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
 
             $columns = array(
@@ -46,8 +52,12 @@ class FeedbackTypesController extends Controller
 
                     // $actionButtons
                     $actionButtons = "";
-                    $actionButtons .= '<a href="' . route('feedback-types.edit', ['id' => $value->id]) . '"> Edit |</a>';
-                    $actionButtons .= '<a href="" class="delete-btn" data-id="' . $value->id . '">Delete</a>';
+                    if (auth()->user()->can('edit-feedback-type')) {
+                        $actionButtons .= '<a href="' . route('feedback-types.edit', ['id' => $value->id]) . '"> Edit </a>';
+                    }
+                    if (auth()->user()->can('delete-feedback-type')) {
+                        $actionButtons .= '<a href="" class="delete-btn" data-id="' . $value->id . '"> Delete</a>';
+                    }
                     $nestedData['actions'] = $actionButtons;
                     $data[] = $nestedData;
                 }

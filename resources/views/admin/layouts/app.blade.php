@@ -84,6 +84,7 @@ a:hover {
 </style>
 <body>
     <div id="app">
+        @auth
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <div class="sm:fixed p-6">
@@ -91,15 +92,29 @@ a:hover {
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.home') }}">Home</a>
                     </li>
+                    @can('view-user')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('users') }}">Show Users</a>
                     </li>
+                    @endcan
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.feedback') }}">Feedbacks</a>
                     </li>
+                    @can('view-feedback-type')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('feedback-types') }}">Feedback Type</a>
                     </li>
+                    @endcan
+                    @can('view-role')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('roles') }}">Roles And Permissions</a>
+                    </li>
+                    @endcan
+                    @can('view-admin-user')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin-user') }}">Admin User</a>
+                    </li>
+                    @endcan
                     </ul>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -112,13 +127,11 @@ a:hover {
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
-                        @auth
                         @if(Auth::user()->user_type == 1)
-                            <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         @endif
-                        @endauth
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('admin.logout') }}">
@@ -130,6 +143,7 @@ a:hover {
                 </div>
             </div>
         </nav>
+        @endauth
         <main class="py-5">
             @yield('content')
         </main>

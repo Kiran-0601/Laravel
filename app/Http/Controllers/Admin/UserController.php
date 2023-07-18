@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view-user')->only('index','view');
+        $this->middleware('permission:edit-user')->only('edit','update','updateStatus');
+        $this->middleware('permission:delete-user')->only('delete');
+    }
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -53,16 +59,28 @@ class UserController extends Controller
                     $nestedData['email'] = $value->email;
                     $nestedData['gender'] = $value->gender;
 
-                    $checked = ($value->status == 1) ? 'checked' : '';
                     $toggleSwitch = "";
-                    $toggleSwitch .= '<div class="form-switch"><input class="form-check-input toggle-switch" type="checkbox" role="switch" data-id="' . $value->id . '" ' . $checked . '></div>';
+                    $checked = ($value->status == '1') ? 'checked' : '';
+
+                    if (auth()->user()->can('edit-user')) {
+                        $toggleSwitch .= '<div class="form-switch"><input class="form-check-input toggle-switch" type="checkbox" role="switch" data-id="' . $value->id . '" ' . $checked . '></div>';
+                    }
+                    elseif (auth()->user()->can('view-user')) {
+                        $toggleSwitch .= '<div class="form-switch"><input class="form-check-input toggle-switch" type="checkbox" role="switch" data-id="' . $value->id . '" ' . $checked . ' disabled></div>';
+                    }
                     $nestedData['status'] = $toggleSwitch;
 
                     // $actionButtons
                     $actionButtons = "";
-                    $actionButtons .= '<a href="' . route('users.view', ['id' => $value->id]) . '">View |</a>';
-                    $actionButtons .= '<a href="' . route('users.edit', ['id' => $value->id]) . '"> Edit |</a>';
-                    $actionButtons .= '<a class="delete-btn" data-id="' . $value->id . '"> Delete</a>';
+                    if (auth()->user()->can('view-user')) {
+                        $actionButtons .= '<a href="' . route('users.view', ['id' => $value->id]) . '">View  </a>';
+                    }
+                    if (auth()->user()->can('edit-user')) {
+                        $actionButtons .= '<a href="' . route('users.edit', ['id' => $value->id]) . '">  Edit  </a>';
+                    }
+                    if (auth()->user()->can('delete-user')) {
+                        $actionButtons .= '<a class="delete-btn" data-id="' . $value->id . '"> Delete</a>';
+                    }
                     $nestedData['actions'] = $actionButtons;
                     $data[] = $nestedData;
                 }

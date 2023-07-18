@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\Admin\AdminUserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\AuthController;
@@ -8,6 +9,8 @@ use App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
 use App\Http\Controllers\Admin\FeedbackTypesController;
 use App\Http\Controllers\Admin\ForgotPasswordController;
 use App\Http\Controllers\Admin\ResetPasswordController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\RolesAndPermissionsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
@@ -76,6 +79,21 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('feedback-types/update', [FeedbackTypesController::class, 'update'])->name('feedback-types.update');
         Route::get('feedback-types/delete', [FeedbackTypesController::class, 'delete'])->name('feedback-types.delete');
 
+        // Roles Form Routes
+        Route::get('/roles', [RoleController::class, 'index'])->name('roles');
+        Route::get('roles/create', [RoleController::class, 'create'])->name('roles.create');
+        Route::post('roles/store', [RoleController::class, 'store'])->name('roles.store');
+        Route::get('roles/edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
+        Route::post('roles/update', [RoleController::class, 'update'])->name('roles.update');
+        Route::get('roles/delete', [RoleController::class, 'delete'])->name('roles.delete');
+        
+        // Admin User Form Routes
+        Route::get('/admin-users', [AdminUserController::class, 'index'])->name('admin-user');
+        Route::get('admin-users/create', [AdminUserController::class, 'create'])->name('admin-user.create');
+        Route::post('admin-users/store', [AdminUserController::class, 'store'])->name('admin-user.store');
+        Route::get('admin-users/edit/{id}', [AdminUserController::class, 'edit'])->name('admin-user.edit');
+        Route::post('admin-users/update', [AdminUserController::class, 'update'])->name('admin-user.update');
+        Route::get('admin-users/delete', [AdminUserController::class, 'delete'])->name('admin-user.delete');    
     });
     // Forgot Password & Reset Password Routes
     Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');

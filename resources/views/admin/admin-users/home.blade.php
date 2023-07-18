@@ -3,14 +3,16 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-12">
-      @can('add-feedback-type')
-        <button  onclick="window.location.href='{{ route('feedback-types.create') }}'"  class="register">Add FeedbackType</button>
+      @can('add-admin-user')
+      <button  onclick="window.location.href='{{ route('admin-user.create') }}'"  class="register">Add Admin User</button>
       @endcan
-      <table id="feedback-type-table" class="table">
+      <table id="admin-users-table" class="table">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Feedback Type</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -21,22 +23,30 @@
 <script>
 $(document).ready(function () {
 
-  var table =  $('#feedback-type-table').DataTable({
+  var table =  $('#admin-users-table').DataTable({
     "processing": true,
     "serverSide": true,
     "deferRender": true,
     "ajax": {
-      "url": "{{ route('feedback-types') }}",
+      "url": "{{ route('admin-user') }}",
       "dataType": "json",
       "type": "GET"
     },
     "columns": [
-      { 
+      {
         "data": "id",
         orderable: true
       },
       {
-        "data": "feedback_type",
+        "data": "name",
+        orderable: true
+      },
+      {
+        "data": "email",
+        orderable: true
+      },
+      {
+        "data": "role",
         orderable: true
       },
       {
@@ -45,7 +55,7 @@ $(document).ready(function () {
       }
     ],
   });
-  $('#feedback-type-table').on('click', '.delete-btn', function(e) {
+  $('#admin-users-table').on('click', '.delete-btn', function(e) {
     e.preventDefault();
     userId = $(this).data('id');
     // alert(userId);
@@ -54,7 +64,7 @@ $(document).ready(function () {
   $('#confirmDeleteBtn').on('click', function() {
     // Hide the modal
     $('#deleteModal').modal('hide');
-    var url = "{{ route('feedback-types.delete') }}";
+    var url = "{{ route('admin-user.delete') }}";
 
     $.ajax({
       url: url,
@@ -75,7 +85,7 @@ $(document).ready(function () {
   });
 });
 </script>
- <!-- Bootstrap modal for Delete Confirmation -->
+<!-- Bootstrap modal for Delete Confirmation -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -85,7 +95,7 @@ $(document).ready(function () {
         </button>
       </div>
       <div class="modal-body">
-        Are you sure you want to delete this user?
+        Are you sure you want to delete this Admin User?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
