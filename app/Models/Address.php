@@ -12,7 +12,13 @@ class Address extends Model
         'user_id',
         'addline1',
         'addline2',
+        'country_id',
         'city',
         'pincode'
     ];
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+    
 }
